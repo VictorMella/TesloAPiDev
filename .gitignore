@@ -5,6 +5,14 @@
 # postgres
 postgres/
 
+# package-lock.json
+package-lock.json
+
+# static
+static/products/
+static/uploads/
+
+
 # Logs
 logs
 *.log

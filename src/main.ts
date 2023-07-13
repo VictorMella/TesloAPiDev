@@ -1,9 +1,10 @@
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const logger = new Logger('bootstrap');
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
     new ValidationPipe({
@@ -15,6 +16,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true, //Notifica las propiedades que estan demas
     }),
   );
-  await app.listen(5000);
+  await app.listen(process.env.PORT);
+  logger.log(`Hola, estas en el puerto ${process.env.PORT}`);
 }
 bootstrap();

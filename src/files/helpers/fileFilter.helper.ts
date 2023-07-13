@@ -3,7 +3,6 @@ export const fileFilter = (
   file: Express.Multer.File,
   callback: any,
 ) => {
-  console.log({ file });
   if (!file) {
     return callback(new Error('File is empty'), false);
   }
