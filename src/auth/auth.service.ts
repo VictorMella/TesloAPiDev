@@ -10,7 +10,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { CreateUserDto, LoginUserDto } from './dto';
-import { JWTPayload } from './interfaces/jwt-payload.interface';
+import { JWTPayload } from './interfaces';
 
 @Injectable()
 export class AuthService {
@@ -39,7 +39,7 @@ export class AuthService {
     email = email.toLowerCase().trim();
     const user = await this.userRepository.findOne({
       where: { email },
-      select: { email: true, password: true },
+      select: { email: true, password: true, id: true },
     });
 
     if (!user) {
@@ -51,6 +51,14 @@ export class AuthService {
     }
 
     return { ...user, token: this.getJwtToken({ id: user.id }) };
+  }
+
+  //Es como el refresh token
+  async checkAuthStatus(user: User) {
+    return {
+      ...user,
+      token: this.getJwtToken({ id: user.id }),
+    };
   }
 
   private handleDBErrors(error: any): never {
