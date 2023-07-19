@@ -1,5 +1,6 @@
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -16,6 +17,15 @@ async function bootstrap() {
       forbidNonWhitelisted: true, //Notifica las propiedades que estan demas
     }),
   );
+
+  const config = new DocumentBuilder()
+    .setTitle('Teslo Api')
+    .setDescription('Teslo shop endpoint')
+    .setVersion('1.0')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('api', app, document);
+
   await app.listen(process.env.PORT);
   logger.log(`Hola, estas en el puerto ${process.env.PORT}`);
 }

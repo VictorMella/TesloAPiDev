@@ -18,3 +18,7 @@ docker-compose up -d
 ```
 http://localhost:5000/api/seed
 ```
+8. Documentación Swagger (No completa)
+```
+http://localhost:5000/api
+```

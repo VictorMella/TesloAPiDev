@@ -7,20 +7,25 @@ import {
   Get,
   Param,
   Res,
+  Logger,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { diskStorage } from 'multer';
 import { FilesService } from './files.service';
 import { fileNamer, fileFilter } from './helpers';
-
+@ApiTags('Files')
 @Controller('files')
 export class FilesController {
+  private readonly logger = new Logger(FilesController.name);
   constructor(
     private readonly filesService: FilesService,
     private readonly configService: ConfigService,
-  ) {}
+  ) {
+    this.logger.log(`Controller name: ${FilesController.name}`);
+  }
 
   @Get('product/:imageName')
   findOneImage(@Res() res: Response, @Param('imageName') imageName: string) {
