@@ -15,12 +15,10 @@ import { MessageWsModule } from './message-ws/message-ws.module';
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       ssl: process.env.STAGE === 'prod',
-      extra:
-        process.env.STAGE === 'prod'
-          ? {
-              rejectedUnauthorized: false,
-            }
-          : null,
+      extra: {
+        ssl:
+          process.env.STAGE === 'prod' ? { rejectUnauthorized: false } : null,
+      },
 
       type: 'postgres',
       host: process.env.DB_HOST,
