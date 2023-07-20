@@ -7,7 +7,7 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { JWTPayload } from 'src/auth/interfaces';
+import { JWTPayload } from '../auth/interfaces';
 import { NewMessageDto } from './dto/new message.dto';
 import { MessageWsService } from './message-ws.service';
 
